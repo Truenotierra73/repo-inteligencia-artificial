@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7adb138-aa42-40d7-a8ce-24f95917a072" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/agus_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/repo-inteligencia-artificial.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Inteligencia Artificial/TP4/svm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inteligencia Artificial/TP 4/random-forest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
