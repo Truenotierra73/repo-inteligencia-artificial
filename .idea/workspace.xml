@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7adb138-aa42-40d7-a8ce-24f95917a072" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Inteligencia Artificial/TP 4/random-forest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm" beforeDir="false" />
-    </list>
+    <list default="true" id="e7adb138-aa42-40d7-a8ce-24f95917a072" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,13 +12,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="svm.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP4/svm.py">
+        <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="338" column="45" selection-start-line="338" selection-start-column="45" selection-end-line="338" selection-end-column="45" />
-              <folding>
-                <element signature="e#12#31#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="313">
+              <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
             </state>
           </provider>
         </entry>
@@ -42,6 +36,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Inteligencia Artificial/TP4/svm.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py" />
       </list>
     </option>
   </component>
@@ -72,7 +68,7 @@
               <item name="repo-inteligencia-artificial" type="b2602c69:ProjectViewProjectNode" />
               <item name="repo-inteligencia-artificial" type="462c0819:PsiDirectoryNode" />
               <item name="Inteligencia Artificial" type="462c0819:PsiDirectoryNode" />
-              <item name="TP4" type="462c0819:PsiDirectoryNode" />
+              <item name="TP 4" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -96,7 +92,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.svm (1)">
+    <configuration name="svm (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="repo-inteligencia-artificial" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Inteligencia Artificial/TP 4" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="svm" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="repo-inteligencia-artificial" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -115,8 +129,13 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <list>
+      <item itemvalue="Python.svm" />
+      <item itemvalue="Python.svm (1)" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.svm (1)" />
         <item itemvalue="Python.svm" />
       </list>
     </recent_temporary>
@@ -138,12 +157,12 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1264489" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1264489" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50052685" side_tool="true" weight="0.32897604" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" weight="0.32897604" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.32897604" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -192,6 +211,26 @@
           <folding>
             <element signature="e#12#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="34">
+            <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
         </state>
       </provider>
     </entry>
