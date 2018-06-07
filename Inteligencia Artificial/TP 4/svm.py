@@ -423,16 +423,16 @@ for row in data_test.itertuples(index=True):
     index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female, FamilySize, IsAlone = row
     if getattr(row, 'FamilySize') != 1:
         # ¿¿Tiene familia??
-        data_train.at[index, 'IsAlone'] = 0
+        data_test.at[index, 'IsAlone'] = 0
     else:
         # ¿¿Está solo??
-        data_train.at[index, 'IsAlone'] = 1
+        data_test.at[index, 'IsAlone'] = 1
 
 print(data_test.head())
 print("\n")
 print(data_train[['IsAlone', 'Survived']].groupby(['IsAlone'], as_index=False).mean())
 
-data_train = data_train.drop(['FamilySize'])
+data_train = data_train.drop(['FamilySize'], axis=1)
 print(data_train.head())
-data_test = data_test.drop(['FamilySize'])
+data_test = data_test.drop(['FamilySize'], axis=1)
 print(data_test.head())
