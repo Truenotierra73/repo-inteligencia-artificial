@@ -1,7 +1,5 @@
 # LIBRERÍAS
 import pandas as pd
-import random
-import math
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
@@ -133,6 +131,7 @@ print(data_test.columns.values)
 print(data_test.head())
 print("\n")
 # print(data_train.info())
+print("-"*60)
 
 # Completando Age
 sumaEdadMaster = 0.0
@@ -179,24 +178,7 @@ for row in data_test.itertuples(index=True):
     if getattr(row, 'Title') == 5 and pd.isna(getattr(row, 'Age')) == False:
         sumaEdadOther = sumaEdadOther + getattr(row, 'Age')
         other += 1
-# for row in dataset._iter_():
-#     if row.get_values('Title') == 1 and pd.isna(row.get_values('Age')) == False:
-#         sumaEdadMaster = sumaEdadMaster + getattr(row, 'Age')
-#         master += 1
-#     if row['Title'] == 1 and pd.isna(row['Age']) == False:
-#         sumaEdadMiss = sumaEdadMiss + getattr(row, 'Age')
-#         miss += 1
-#     if row['Title'] == 1 and pd.isna(row['Age']) == False:
-#         sumaEdadMrs = sumaEdadMrs + getattr(row, 'Age')
-#         mrs += 1
-#     if row['Title'] == 1 and pd.isna(row['Age']) == False:
-#         sumaEdadMr = sumaEdadMr + getattr(row, 'Age')
-#         mr += 1
-#     if row['Title'] == 1 and pd.isna(row['Age']) == False:
-#         sumaEdadOther = sumaEdadOther + getattr(row, 'Age')
-#         other += 1
-#     # print(row[['Title', 'Age']])
-
+    # print(row[['Title', 'Age']])
 
 print("SUMA:", sumaEdadMaster, "CANT:", master)
 media_master = sumaEdadMaster/master
@@ -217,22 +199,19 @@ print("TOTAL:", master+miss+mrs+mr+other)
 print("\n")
 
 print(data_train.info())
+print("\n")
 
 for row in data_train.itertuples(index=True):
     index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
     if getattr(row, 'Title') == 1 and pd.isna(getattr(row, 'Age')) == True:
         data_train.at[index ,'Age'] = media_master
     if getattr(row, 'Title') == 2 and pd.isna(getattr(row, 'Age')) == True:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = media_miss
     if getattr(row, 'Title') == 3 and pd.isna(getattr(row, 'Age')) == True:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = media_mrs
     if getattr(row, 'Title') == 4 and pd.isna(getattr(row, 'Age')) == True:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = media_mr
     if getattr(row, 'Title') == 5 and pd.isna(getattr(row, 'Age')) == True:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = media_other
     # print(getattr(row, 'Title'), getattr(row, 'Age'))
 
@@ -244,25 +223,23 @@ for row in data_test.itertuples(index=True):
     if getattr(row, 'Title') == 1 and pd.isna(getattr(row, 'Age')) == True:
         data_test.at[index, 'Age'] = media_master
     if getattr(row, 'Title') == 2 and pd.isna(getattr(row, 'Age')) == True:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = media_miss
     if getattr(row, 'Title') == 3 and pd.isna(getattr(row, 'Age')) == True:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = media_mrs
     if getattr(row, 'Title') == 4 and pd.isna(getattr(row, 'Age')) == True:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = media_mr
     if getattr(row, 'Title') == 5 and pd.isna(getattr(row, 'Age')) == True:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = media_other
 
 # Convertir todos los valores del feature Age en números enteros. De float a int.
 data_test['Age'] = data_test['Age'].astype(np.int64)
 
 print(data_train.info())
-print(data_train.head(n=891))
+print(data_train.head())
+print("\n")
 print(data_test.info())
-print(data_test.head(n=418))
+print(data_test.head())
+print("\n")
 
 dataset = [data_train, data_test]
 print(data_train.shape)
@@ -279,25 +256,18 @@ for row in data_train.itertuples(index=True):
     if getattr(row, 'Age') <= 10:
         data_train.at[index, 'Age'] = 0
     if getattr(row, 'Age') > 10 and getattr(row, 'Age') <= 20:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 1
     if getattr(row, 'Age') > 20 and getattr(row, 'Age') <= 30:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 2
     if getattr(row, 'Age') > 30 and getattr(row, 'Age') <= 40:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 3
     if getattr(row, 'Age') > 40 and getattr(row, 'Age') <= 50:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 4
     if getattr(row, 'Age') > 50 and getattr(row, 'Age') <= 60:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 5
     if getattr(row, 'Age') > 60 and getattr(row, 'Age') <= 70:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 6
     if getattr(row, 'Age') > 70:
-        # index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_train.at[index, 'Age'] = 7
 
 print(data_train.head())
@@ -308,29 +278,22 @@ for row in data_test.itertuples(index=True):
     if getattr(row, 'Age') <= 10:
         data_test.at[index, 'Age'] = 0
     if getattr(row, 'Age') > 10 and getattr(row, 'Age') <= 20:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 1
     if getattr(row, 'Age') > 20 and getattr(row, 'Age') <= 30:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 2
     if getattr(row, 'Age') > 30 and getattr(row, 'Age') <= 40:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 3
     if getattr(row, 'Age') > 40 and getattr(row, 'Age') <= 50:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 4
     if getattr(row, 'Age') > 50 and getattr(row, 'Age') <= 60:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 5
     if getattr(row, 'Age') > 60 and getattr(row, 'Age') <= 70:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 6
     if getattr(row, 'Age') > 70:
-        # index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
         data_test.at[index, 'Age'] = 7
 
 print(data_test.head())
-print("\n")
+print("-"*60)
 
 # Completando Embarcaciones
 embarked_C = 0
@@ -362,7 +325,114 @@ for row in data_train.itertuples(index=True):
     if pd.isna(getattr(row, 'Embarked')) ==  True:
         data_train.at[index, 'Embarked'] = 'S'
 
+dataset = [data_train, data_test]
+for data in dataset:
+    data['Embarked'] = data['Embarked'].replace(['S'], 0)
+    data['Embarked'] = data['Embarked'].replace(['Q'], 1)
+    data['Embarked'] = data['Embarked'].replace(['C'], 2)
 
-# Completando Fare del conjunto de Test
+print(data_train.head())
+print("\n")
+print(data_test.head())
+print("-"*60)
+
+# Completando Fare
 data_test['Fare'].fillna(data_test['Fare'].dropna().mean(), inplace=True)
 print(data_test.info())
+print("\n")
+
+data_train['Fare'] = data_train['Fare'].astype(np.int64)
+data_test['Fare'] = data_test['Fare'].astype(np.int64)
+print(data_train.info())
+print("\n")
+
+data_train['FareRange'] = pd.qcut(data_train['Fare'], 5, duplicates='drop')
+print(data_train[['FareRange', 'Survived']].groupby(['FareRange'], as_index=False).mean().sort_values(by='FareRange', ascending=True))
+grid = sns.factorplot(x="FareRange", y="Survived", data=data_train, kind="bar")
+grid = grid.set_xticklabels(["0", "1", "2", "3", "4"])
+grid = grid.set_ylabels("survival probability")
+plt.show()
+data_train = data_train.drop(['FareRange'], axis=1)
+
+for row in data_train.itertuples(index=True):
+    index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
+    if getattr(row, 'Fare') <= 7:
+        data_train.at[index, 'Fare'] = 0
+    if getattr(row, 'Fare') > 7 and getattr(row, 'Fare') <= 10:
+        data_train.at[index, 'Fare'] = 1
+    if getattr(row, 'Fare') > 10 and getattr(row, 'Fare') <= 21:
+        data_train.at[index, 'Fare'] = 2
+    if getattr(row, 'Fare') > 21 and getattr(row, 'Fare') <= 39:
+        data_train.at[index, 'Fare'] = 3
+    if getattr(row, 'Fare') > 39:
+        data_train.at[index, 'Fare'] = 4
+
+for row in data_test.itertuples(index=True):
+    index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female = row
+    if getattr(row, 'Fare') <= 7:
+        data_test.at[index, 'Fare'] = 0
+    if getattr(row, 'Fare') > 7 and getattr(row, 'Fare') <= 10:
+        data_test.at[index, 'Fare'] = 1
+    if getattr(row, 'Fare') > 10 and getattr(row, 'Fare') <= 21:
+        data_test.at[index, 'Fare'] = 2
+    if getattr(row, 'Fare') > 21 and getattr(row, 'Fare') <= 39:
+        data_test.at[index, 'Fare'] = 3
+    if getattr(row, 'Fare') > 39:
+        data_test.at[index, 'Fare'] = 4
+
+print(data_train.head())
+print("n")
+print(data_test.head())
+print("\n")
+print("-"*60)
+
+# Creación de un nuevo feature: IsAlone
+
+data_train['FamilySize'] = None
+for row in data_train.itertuples(index=True):
+    data_train['FamilySize'] = data_train['SibSp'] + data_train['Parch'] + 1
+
+print(data_train.head())
+print(data_train.info())
+print("\n")
+
+data_test['FamilySize'] = None
+for row in data_test.itertuples(index=True):
+    data_test['FamilySize'] = data_test['SibSp'] + data_test['Parch'] + 1
+
+print(data_test.head())
+print(data_test.info())
+print("\n")
+
+data_train['IsAlone'] = None
+for row in data_train.itertuples(index=True):
+    index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female, FamilySize, IsAlone = row
+    if getattr(row, 'FamilySize') != 1:
+        # ¿¿Tiene familia??
+        data_train.at[index, 'IsAlone'] = 0
+    else:
+        # ¿¿Está solo??
+        data_train.at[index, 'IsAlone'] = 1
+
+print(data_train.head())
+print("\n")
+print(data_train[['IsAlone', 'Survived']].groupby(['IsAlone'], as_index=False).mean())
+
+data_test['IsAlone'] = None
+for row in data_test.itertuples(index=True):
+    index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female, FamilySize, IsAlone = row
+    if getattr(row, 'FamilySize') != 1:
+        # ¿¿Tiene familia??
+        data_train.at[index, 'IsAlone'] = 0
+    else:
+        # ¿¿Está solo??
+        data_train.at[index, 'IsAlone'] = 1
+
+print(data_test.head())
+print("\n")
+print(data_train[['IsAlone', 'Survived']].groupby(['IsAlone'], as_index=False).mean())
+
+data_train = data_train.drop(['FamilySize'])
+print(data_train.head())
+data_test = data_test.drop(['FamilySize'])
+print(data_test.head())
