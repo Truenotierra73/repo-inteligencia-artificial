@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="e7adb138-aa42-40d7-a8ce-24f95917a072" name="Default" comment="" />
+=======
+    <list default="true" id="e7adb138-aa42-40d7-a8ce-24f95917a072" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py" beforeDir="false" afterPath="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py" afterDir="false" />
+    </list>
+>>>>>>> desarrollo-ia
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +20,16 @@
       <file leaf-file-name="svm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="313">
               <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
+=======
+            <state relative-caret-position="449">
+              <caret line="437" column="23" lean-forward="true" selection-start-line="437" selection-start-column="23" selection-end-line="437" selection-end-column="23" />
+              <folding>
+                <element signature="e#12#31#0" expanded="true" />
+              </folding>
+>>>>>>> desarrollo-ia
             </state>
           </provider>
         </entry>
@@ -36,7 +50,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Inteligencia Artificial/TP4/svm.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/README.md" />
+=======
+>>>>>>> desarrollo-ia
         <option value="$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py" />
       </list>
     </option>
@@ -192,7 +209,27 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP4/svm.py">
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6579">
+          <caret line="387" lean-forward="true" selection-start-line="387" selection-end-line="387" />
+          <folding>
+            <element signature="e#12#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6239">
+          <caret line="373" column="40" lean-forward="true" selection-start-line="373" selection-start-column="40" selection-end-line="373" selection-end-column="40" />
+          <folding>
+            <element signature="e#12#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5644">
           <caret line="338" column="45" lean-forward="true" selection-start-line="338" selection-start-column="45" selection-end-line="338" selection-end-column="45" />
@@ -204,7 +241,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/random-forest.py" />
     <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm" />
-    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP4/svm.py">
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="581">
           <caret line="338" column="45" selection-start-line="338" selection-start-column="45" selection-end-line="338" selection-end-column="45" />
@@ -224,9 +261,13 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+=======
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/.idea/workspace.xml" />
+>>>>>>> desarrollo-ia
     <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -234,5 +275,30 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5644">
+          <caret line="338" column="45" lean-forward="true" selection-start-line="338" selection-start-column="45" selection-end-line="338" selection-end-column="45" />
+          <folding>
+            <element signature="e#12#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/random-forest.py" />
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm" />
+    <entry file="file://$PROJECT_DIR$/Inteligencia Artificial/TP 4/svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="437" column="23" lean-forward="true" selection-start-line="437" selection-start-column="23" selection-end-line="437" selection-end-column="23" />
+          <folding>
+            <element signature="e#12#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+>>>>>>> desarrollo-ia
   </component>
 </project>
