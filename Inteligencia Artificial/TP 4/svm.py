@@ -3,7 +3,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.decomposition import PCA
 from scipy import stats
+from sklearn import metrics
+# machine learning
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 
 # LEER ARCHIVOS
 data_train = pd.read_csv('C:/Users/agus_/Downloads/train.csv')
@@ -68,7 +73,7 @@ plt.show()
 
 # sns.set(style="darkgrid")
 grid = sns.FacetGrid(data_train, col='Survived')
-grid = grid.map(sns.distplot, 'Age', hist=True, hist_kws=dict(edgecolor="w"), color='green')
+grid = grid.map(sns.distplot, 'Age', hist=True, hist_kws=dict(edgecolor="w"), color='blue')
 plt.show()
 
 # 2) Corrección de features
@@ -113,12 +118,13 @@ for data in dataset:
     data['Title'] = data['Title'].map(transformacion_de_titulos)
     data['Title'] = data['Title'].fillna(value=0) # fillna() ---> busca todos los valores NaN y los reemplaza por 0
 
-print(data_train.head(n=10))
+print()
 
 data_train = data_train.drop(['Name'], axis=1)
 data_test = data_test.drop(['Name'], axis=1)
 dataset = [data_train, data_test]
 
+# Sex dummies
 data_train = pd.get_dummies(data=data_train, columns=['Sex'])
 data_train = data_train.drop(['Sex_male'], axis=1)
 data_test = pd.get_dummies(data=data_test, columns=['Sex'])
@@ -343,7 +349,7 @@ print("\n")
 
 data_train['Fare'] = data_train['Fare'].astype(np.int64)
 data_test['Fare'] = data_test['Fare'].astype(np.int64)
-print(data_train.info())
+print(data_test.info())
 print("\n")
 
 data_train['FareRange'] = pd.qcut(data_train['Fare'], 5, duplicates='drop')
@@ -430,9 +436,70 @@ for row in data_test.itertuples(index=True):
 
 print(data_test.head())
 print("\n")
-print(data_train[['IsAlone', 'Survived']].groupby(['IsAlone'], as_index=False).mean())
 
 data_train = data_train.drop(['FamilySize'], axis=1)
 print(data_train.head())
 data_test = data_test.drop(['FamilySize'], axis=1)
 print(data_test.head())
+
+# APLICACIÓN DE LOS DIFERENTES ALGORITMOS DE CLASIFICACIÓN
+
+data_train = data_train.astype(float)
+y_train = data_train["Survived"]
+X_train = data_train.drop("Survived", axis=1)
+X_test = data_test.drop("PassengerId", axis=1).copy()
+print(X_train.shape, y_train.shape, X_test.shape)
+print(data_train.head())
+
+# Support Vector Machines
+# svc = SVC()
+# svc.fit(X_train, y_train)
+# y_hat = svc.predict(X_test)
+# acc_svc = round(svc.score(X_train, y_train) * 100, 2)
+# print(acc_svc)
+
+# SVC sin normalizar
+svc = SVC()
+svc.fit(X_train, y_train)
+y_hat = svc.predict(X_test)
+print("SVC Score sin normalizacion" , round(svc.score(X_train, y_train) * 100, 2))
+
+# Randon Forest
+random_forest = RandomForestClassifier(n_estimators=10)
+random_forest.fit(X_train, y_train)
+y_hat = random_forest.predict(X_test)
+acc_random_forest = round(random_forest.score(X_train, y_train) * 100, 2)
+print("Random Forest Score sin normalizacion" , acc_random_forest)
+
+# SVC Normalizado
+media = X_train.values.mean(axis=0)
+desviacion = np.std(X_train.values, 0)
+i = 0
+j = 0
+
+# Declaración del conjunto de entrenamiento normalizado
+X_train_norm = np.zeros(np.shape(X_train.values))
+# Declaración del conjunto de test normalizado
+X_test_norm = np.zeros(np.shape(X_test.values))
+
+# Normalización del conjunto de entrenamiento
+X_train_norm = stats.zscore(X_train.values)
+# Normalización del conjunto de test
+for i in range(X_test.values.shape[1]): #shape 0 te da las filas
+    for j in range(X_test.values.shape[0]):
+        X_test_norm[j,i] = (X_test.values[j,i] - media[i])/(desviacion[i])
+
+svc = SVC()
+svc.fit(X_train_norm, y_train)
+y_hat = svc.predict(X_test_norm)
+print("SVC Score con normalizacion" , round(svc.score(X_train_norm, y_train) * 100, 2))
+#result.Survived = svc.predict(X_test)
+
+# Randon Forest Normalizado
+random_forest = RandomForestClassifier(n_estimators=10)
+random_forest.fit(X_train_norm, y_train)
+y_hat = random_forest.predict(X_test_norm)
+acc_random_forest = round(random_forest.score(X_train_norm, y_train) * 100, 2)
+print("Random Forest Score con normalizacion" , acc_random_forest)
+
+# PCA
