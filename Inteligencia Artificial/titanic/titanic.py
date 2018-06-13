@@ -629,7 +629,7 @@ y_hat = random_forest.predict(X_test_norm)
 acc_random_forest = round(random_forest.score(X_train_PCA, y_train) * 100, 2)
 print("Tasa de aciertos para Random Forest con PCA" , acc_random_forest)
 
-#No se justifica realizar la transformacion  de los features con PCA ya que la varianza de cada componente
-#que generamos no varia en gran medida entre ellos y para llegar a un 80 % de la varianza de los datos
+ #No se justifica realizar la transformacion  de los features con PCA ya que la varianza de cada componente
+# que generamos no varia en gran medida entre ellos y para llegar a un 80 % de la varianza de los datos
 # se necesitan como minimo 5 componentes de 7 que se generan. Por otro lado al aplicar PCA en uno de los clasificadores
 # notamos que disminuye la tasa de aciertos. Esta es otra causa q nos determina que no es significativo aplicar PCA
