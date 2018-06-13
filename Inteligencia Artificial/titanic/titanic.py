@@ -2,10 +2,13 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import scikitplot as skplt
 import numpy as np
+from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from scipy import stats
 from sklearn import metrics
+from sklearn.preprocessing import scale
 # machine learning
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
@@ -393,7 +396,6 @@ print("\n")
 print("-"*60)
 
 # Creación de un nuevo feature: IsAlone
-
 data_train['FamilySize'] = None
 for row in data_train.itertuples(index=True):
     data_train['FamilySize'] = data_train['SibSp'] + data_train['Parch'] + 1
@@ -414,64 +416,72 @@ data_train['IsAlone'] = None
 for row in data_train.itertuples(index=True):
     index, Survived, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female, FamilySize, IsAlone = row
     if getattr(row, 'FamilySize') != 1:
-        # ¿¿Tiene familia??
+        # Tiene familia
         data_train.at[index, 'IsAlone'] = 0
     else:
-        # ¿¿Está solo??
+        # Está solo
         data_train.at[index, 'IsAlone'] = 1
 
 print(data_train.head())
 print("\n")
 print(data_train[['IsAlone', 'Survived']].groupby(['IsAlone'], as_index=False).mean())
+print("\n")
 
 data_test['IsAlone'] = None
 for row in data_test.itertuples(index=True):
     index, PassengerId, Pclass, Age, SibSp, Parch, Fare, Embarked, Title, Sex_female, FamilySize, IsAlone = row
     if getattr(row, 'FamilySize') != 1:
-        # ¿¿Tiene familia??
+        # Tiene familia
         data_test.at[index, 'IsAlone'] = 0
     else:
-        # ¿¿Está solo??
+        # Está solo
         data_test.at[index, 'IsAlone'] = 1
 
 print(data_test.head())
 print("\n")
 
-data_train = data_train.drop(['FamilySize'], axis=1)
+data_train = data_train.drop(['SibSp', 'Parch', 'FamilySize'], axis=1)
 print(data_train.head())
-data_test = data_test.drop(['FamilySize'], axis=1)
+print("\n")
+data_test = data_test.drop(['SibSp', 'Parch', 'FamilySize'], axis=1)
 print(data_test.head())
+print("\n")
 
 # APLICACIÓN DE LOS DIFERENTES ALGORITMOS DE CLASIFICACIÓN
 
-data_train = data_train.astype(float)
-y_train = data_train["Survived"]
-X_train = data_train.drop("Survived", axis=1)
-X_test = data_test.drop("PassengerId", axis=1).copy()
-print(X_train.shape, y_train.shape, X_test.shape)
-print(data_train.head())
+# data_train = data_train.astype(float)
+X = data_train.drop(['Survived'], axis=1)
+X = X.astype(np.float64)
+y = data_train['Survived']
 
-# Support Vector Machines
-# svc = SVC()
-# svc.fit(X_train, y_train)
-# y_hat = svc.predict(X_test)
-# acc_svc = round(svc.score(X_train, y_train) * 100, 2)
-# print(acc_svc)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=10, test_size=0.3)
 
-# SVC sin normalizar
+# y_train = data_train["Survived"]
+# X_train = data_train.drop("Survived", axis=1)
+# X_test = data_test.drop("PassengerId", axis=1).copy()
+print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)
+print(y.shape)
+print("\n")
+print(X.head())
+print("\n")
+print(y.head())
+print("\n")
+
+# Support Vector Machines sin normalización de datos
 svc = SVC()
 svc.fit(X_train, y_train)
 y_hat = svc.predict(X_test)
-print("SVC Score sin normalizacion" , round(svc.score(X_train, y_train) * 100, 2))
+print("Tasa de aciertos para SVM sin normalización de datos" , round(svc.score(X_train, y_train) * 100, 2))
 
-# Randon Forest
+# Randon Forest sin normalización de datos
 random_forest = RandomForestClassifier(n_estimators=10)
 random_forest.fit(X_train, y_train)
 y_hat = random_forest.predict(X_test)
 acc_random_forest = round(random_forest.score(X_train, y_train) * 100, 2)
-print("Random Forest Score sin normalizacion" , acc_random_forest)
+print("Tasa de aciertos para Random Forest sin normalización de datos" , acc_random_forest)
+print("\n")
 
-# SVC Normalizado
+# Support Vector Machines con normalización de datos
 media = X_train.values.mean(axis=0)
 desviacion = np.std(X_train.values, 0)
 i = 0
@@ -489,17 +499,137 @@ for i in range(X_test.values.shape[1]): #shape 0 te da las filas
     for j in range(X_test.values.shape[0]):
         X_test_norm[j,i] = (X_test.values[j,i] - media[i])/(desviacion[i])
 
-svc = SVC()
+svc = SVC(probability=True)
 svc.fit(X_train_norm, y_train)
 y_hat = svc.predict(X_test_norm)
-print("SVC Score con normalizacion" , round(svc.score(X_train_norm, y_train) * 100, 2))
+print("Tasa de aciertos para SVM con normalización de datos" , round(svc.score(X_train_norm, y_train) * 100, 2))
+
+# Cálculo de la matriz de probabilidades para SVM con datos normalizados
+y_hat_proba = svc.predict_proba(X_train_norm)
+print("El área bajo la curva es:", metrics.roc_auc_score(y_true=y_test, y_score=y_hat))
+print("\n")
+# Reporte de clasificación (precision, recall, f1-score y support)
+print(metrics.classification_report(y_test, y_hat, target_names=['Not Survived', 'Survived']))
+skplt.metrics.plot_roc(y_train, y_hat_proba) # gráfico
+plt.show()
+print("Confusion Matrix y_hat")
+print("----------------------")
+print(metrics.confusion_matrix(y_true=y_test, y_pred=y_hat, labels=[0,1]))
+skplt.metrics.plot_confusion_matrix(y_true=y_test, y_pred=y_hat, labels=[0,1])
+plt.show()
 #result.Survived = svc.predict(X_test)
 
-# Randon Forest Normalizado
+# Randon Forest con normalización de datos
 random_forest = RandomForestClassifier(n_estimators=10)
 random_forest.fit(X_train_norm, y_train)
 y_hat = random_forest.predict(X_test_norm)
 acc_random_forest = round(random_forest.score(X_train_norm, y_train) * 100, 2)
-print("Random Forest Score con normalizacion" , acc_random_forest)
+print("Tasa de aciertos para Random Forest con normalización de datos" , acc_random_forest)
+
+# Cálculo de la matriz de probabilidades para Random Forest con datos normalizados
+y_hat_proba = random_forest.predict_proba(X_train_norm)
+print("El área bajo la curva es:", metrics.roc_auc_score(y_true=y_test, y_score=y_hat))
+print("\n")
+# Reporte de clasificación (precision, recall, f1-score y support)
+print(metrics.classification_report(y_test, y_hat, target_names=['Not Survived', 'Survived']))
+skplt.metrics.plot_roc(y_train, y_hat_proba) # gráfico
+plt.show()
+print("Confusion Matrix y_hat")
+print("----------------------")
+print(metrics.confusion_matrix(y_true=y_test, y_pred=y_hat, labels=[0,1]))
+skplt.metrics.plot_confusion_matrix(y_true=y_test, y_pred=y_hat, labels=[0,1])
+plt.show()
+
+ids = data_test['PassengerId']
+predicciones = random_forest.predict(data_test.drop('PassengerId', axis=1))
+
+output = pd.DataFrame({ 'PassengerId' : ids, 'Survived': predicciones })
+output.to_csv('prediccion-titanic.csv', index = False)
+print(output.head())
+# ------------------------------------------------------------------------------------------------------
 
 # PCA
+pca = PCA(n_components=7)
+
+# Antes de transformar los datos, los mismos deben estar normalizados
+# scale() estandariza los datos con respecto a la media 0 y a la desv. estándar 1 (z-score)
+
+X_scaled = scale(X)
+pca.fit(X_scaled)
+# X_transformed son los datos X transformados linealmente con respecto a los componentes principales
+X_transformed = pca.transform(X_scaled)
+# Veamos los vectores de componentes de PCA...
+print('Componentes de PCA (ordenados desc. desde el 1° hasta el 7° vector): \n\n', pca.components_)
+# Notar que, por la restricción de la ortogonalidad, la máxima
+# cantidad de componentes principales es la de los features de X
+print('Varianza explicada por cada componente: \n\n', pca.explained_variance_)
+
+# Visualizamos ahora cuánto es explicada la varianza
+# por cada uno de los componentes principales
+y_pos = np.arange(7)
+# pca.explained_variance_ratio_ es quien nos devuelve el gráfico de la varianza
+plt.bar(y_pos, np.round(100 * pca.explained_variance_ratio_, decimals=1), align='center', alpha=0.5)
+plt.xticks(y_pos, [1, 2, 3, 4, 5, 6, 7])
+plt.xlabel('N° de Componente Principal')
+plt.ylabel('Varianza')
+plt.title('Varianza explicada por cada componente')
+plt.show()
+
+plt.plot(X_transformed[y==0, 0], np.zeros(len(X_transformed[y==0, 0])), 'o', label=0, color='red')
+plt.plot(X_transformed[y==1, 0], np.zeros(len(X_transformed[y==1, 0])), 'o', label=1, color='green')
+
+
+plt.xlabel('Valor del Primer Componente Principal')
+plt.legend(loc='best', numpoints=1)
+plt.show()
+
+# Incluimos el segundo componente principal, vemos que no cambia sustancialmente...
+plot = plt.scatter(X_transformed[y==0, 0], X_transformed[y==0, 1], label=y[0], color='red')
+plot = plt.scatter(X_transformed[y==1, 0], X_transformed[y==1, 1], label=y[1], color='green')
+
+plt.xlabel('Valor del Primer Componente Principal')
+plt.ylabel('Valor del Segundo Componente Principal')
+plt.legend(loc='best', numpoints=1)
+plt.show()
+
+# código agregado para graficar los vectores
+V = np.array([[pca.components_[0,0],pca.components_[1,0]],
+              [pca.components_[0,1],pca.components_[1,1]],
+              [pca.components_[0,2],pca.components_[1,2]],
+              [pca.components_[0,3],pca.components_[1,3]],
+              [pca.components_[0,4],pca.components_[1,4]],
+              [pca.components_[0,5],pca.components_[1,5]],
+              [pca.components_[0,6],pca.components_[1,6]]])
+origin = [0], [0] # origin point
+
+plot = plt.scatter(X_transformed[y==0, 0], X_transformed[y==0, 1], label='Not Survived', color='red')
+plot = plt.scatter(X_transformed[y==1, 0], X_transformed[y==1, 1], label='Survived', color='green')
+
+# notar que los vectores están agrandados a modo de mejor visualización
+plt.quiver(*origin, V[:,0], V[:,1], color=['black','purple','blue','yellow','red','orange','pink'], scale=3)
+
+plt.text(pca.components_[0,0],pca.components_[1,0], data_train.columns[1], fontsize=12, weight=1000)
+plt.text(pca.components_[0,1],pca.components_[1,1], data_train.columns[2], fontsize=12, weight=1000)
+plt.text(pca.components_[0,2],pca.components_[1,2], data_train.columns[3], fontsize=12, weight=1000)
+plt.text(pca.components_[0,3],pca.components_[1,3], data_train.columns[4], fontsize=12, weight=1000)
+plt.text(pca.components_[0,4],pca.components_[1,4], data_train.columns[5], fontsize=12, weight=1000)
+plt.text(pca.components_[0,5],pca.components_[1,5], data_train.columns[6], fontsize=12, weight=1000)
+plt.text(pca.components_[0,6],pca.components_[1,6], data_train.columns[7], fontsize=12, weight=1000)
+plt.xlabel('Valor del Primer Componente Principal')
+plt.ylabel('Valor del Segundo Componente Principal')
+plt.legend(loc='best', numpoints=1)
+plt.show()
+
+# PCA con Random Forest
+X_train_PCA, X_test, y_train, y_test = train_test_split(X_transformed, y, random_state=10, test_size=0.3)
+
+random_forest = RandomForestClassifier(n_estimators=10)
+random_forest.fit(X_train_PCA, y_train)
+y_hat = random_forest.predict(X_test_norm)
+acc_random_forest = round(random_forest.score(X_train_PCA, y_train) * 100, 2)
+print("Tasa de aciertos para Random Forest con PCA" , acc_random_forest)
+
+#No se justifica realizar la transformacion  de los features con PCA ya que la varianza de cada componente
+#que generamos no varia en gran medida entre ellos y para llegar a un 80 % de la varianza de los datos
+# se necesitan como minimo 5 componentes de 7 que se generan. Por otro lado al aplicar PCA en uno de los clasificadores
+# notamos que disminuye la tasa de aciertos. Esta es otra causa q nos determina que no es significativo aplicar PCA
